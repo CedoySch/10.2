@@ -14,11 +14,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v3
 
-    # Шаг 2: Устанавливаем Python
     - name: Set up Python
-      uses: actions/setup-python@v2
+      uses: actions/setup-python@v4
       with:
         python-version: '3.x'
 
@@ -27,14 +26,14 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Install pyinstaller
+    - name: Install PyInstaller
       run: pip install pyinstaller
 
     - name: Package EXE with PyInstaller
       run: pyinstaller --onefile --noconsole main.py
 
     - name: Upload EXE as artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       with:
         name: exe-package
         path: dist/Lecture_Task_10.2.exe
