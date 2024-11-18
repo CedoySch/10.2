@@ -1,12 +1,6 @@
 name: Build and Package EXE
 
-on:
-  push:
-    branches:
-      - master
-  pull_request:
-    branches:
-      - master
+on: [push]
 
 jobs:
   build:
@@ -14,10 +8,10 @@ jobs:
 
     steps:
     - name: Checkout repository
-      uses: actions/checkout@v3
+      uses: actions/checkout@v3  # Обновлено до v3
 
     - name: Set up Python
-      uses: actions/setup-python@v4
+      uses: actions/setup-python@v4  # Обновлено до v4
       with:
         python-version: '3.x'
 
@@ -26,11 +20,14 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Install PyInstaller
+    - name: Install PyQt5
+      run: pip install PyQt5
+
+    - name: Install pyinstaller
       run: pip install pyinstaller
 
     - name: Package EXE with PyInstaller
-      run: pyinstaller --onefile --noconsole main.py
+      run: pyinstaller --onefile --noconsole --name Lecture_Task_10.2 main.py  # Задаем имя EXE-файла
 
     - name: Upload EXE as artifact
       uses: actions/upload-artifact@v3
